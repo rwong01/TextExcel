@@ -8,7 +8,7 @@ public CellMatrix(){
 public CellMatrix(int r, int c) { 
 	rows=r+1;
 	columns=c+1;
-	arr=new Cell[rows][columns]; //initialize array of Cells
+	arr=new Cell[rows][rows]; //initialize array of Cells
 	for(int i=0;i<rows;i++){
 		for(int j=0;j<columns;j++){
 			arr[i][j]= new Cell(); //initialize each Cell
