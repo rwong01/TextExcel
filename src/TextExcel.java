@@ -30,14 +30,15 @@ public class TextExcel {
 
 	private static void checkInput(String input, CellMatrix matrix) {
 		// TODO Auto-generated method stub
+		String cellIdRegex="[A-G](10|[1-9])";
 		if(input.equals("print"))
 			CellMatrix.printSheet(matrix);
-		else if(input.matches("[A-G][1-10]")){
+		else if(input.matches(cellIdRegex)){
 			char cellAddrColumn=input.charAt(0);
 			int cellAddrRow=Character.getNumericValue(input.charAt(1));
 			System.out.println(input+" = "+matrix.getCell(cellAddrRow, cellAddrColumn));
 		}
-		else if(input.length()>5 && cellAssignment(input)){
+		else if(input.length()>5 && input.substring(0, 5).matches(cellIdRegex+" = ")){
 			String[] command=input.split(" ");
 			char cellAddrColumn=command[0].charAt(0);
 			int cellAddrRow=Character.getNumericValue(command[0].charAt(1));
@@ -45,11 +46,9 @@ public class TextExcel {
 			System.out.println(Arrays.toString(command));
 			matrix.setCell(cellAddrRow, cellAddrColumn, data);
 		}
+		else
+			System.out.println("Not Valid Input");
 	}
-	private static boolean cellAssignment(String input){
-		if(input.substring(0, 5).matches("[A-G][1-10] = "))
-			return true;
-		else return false;
-	}
+	
 }
 
