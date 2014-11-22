@@ -24,7 +24,7 @@ public class TextExcel {
 			System.out.print("Enter command:");
 			userInput=scanIn.nextLine();
 		}
-		System.out.println("Exitting TextExcel");
+		System.out.println("Exiting TextExcel");
 		scanIn.close();
 	}
 
