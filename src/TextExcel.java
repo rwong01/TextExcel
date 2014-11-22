@@ -10,7 +10,7 @@ public class TextExcel {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner input=new Scanner(System.in);
+		Scanner scanIn=new Scanner(System.in);
 		System.out.println("Welcome to TextExcel!");
 //		System.out.print("Enter rows:");
 //		int rows=input.nextInt();
@@ -18,33 +18,37 @@ public class TextExcel {
 //		int columns=input.nextInt();
 		CellMatrix matrix=new CellMatrix();
 		System.out.print("Enter command:");
-		String userInput=input.nextLine();
+		String userInput=scanIn.nextLine();
 		while(!userInput.equals("quit")){
 			checkInput(userInput, matrix);
 			System.out.print("Enter command:");
-			userInput=input.nextLine();
+			userInput=scanIn.nextLine();
 		}
-		input.close();
+		scanIn.close();
 	}
 
-	public static void checkInput(String userInput, CellMatrix matrix) {
+	private static void checkInput(String input, CellMatrix matrix) {
 		// TODO Auto-generated method stub
-		if(userInput.equals("print"))
+		if(input.equals("print"))
 			CellMatrix.printSheet(matrix);
-		else if(userInput.equals("clear sheet"))
-			CellMatrix.clearAll(matrix);
-		else if(userInput.equals("help")){
-			System.out.println("print: prints entire excel sheet");
-			System.out.println("clear sheet: clears entire excel sheet");	
+		else if(input.matches("[A-G][1-10]")){
+			char cellAddrColumn=input.charAt(0);
+			int cellAddrRow=Character.getNumericValue(input.charAt(1));
+			System.out.println(input+" = "+matrix.getCell(cellAddrRow, cellAddrColumn));
 		}
-		else{
-			String[] command=userInput.split(" ");
+		else if(input.length()>5 && cellAssignment(input)){
+			String[] command=input.split(" ");
 			char cellAddrColumn=command[0].charAt(0);
 			int cellAddrRow=Character.getNumericValue(command[0].charAt(1));
 			String data=command[2];
 			System.out.println(Arrays.toString(command));
 			matrix.setCell(cellAddrRow, cellAddrColumn, data);
 		}
+	}
+	private static boolean cellAssignment(String input){
+		if(input.substring(0, 5).matches("[A-G][1-10] = "))
+			return true;
+		else return false;
 	}
 }
 

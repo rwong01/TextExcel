@@ -1,16 +1,11 @@
 public class Cell {
 	public Cell(){
 	}
-	public void setInputVal(String input){
-		
-	}
-	public String getInputVal(){
-		return null;
-	}
-	public String getPrintVal(){
+	public String getInputValue(){
 		return new String("<empty>");
+
 	}
-	public String getValueAsString() throws Exception{
-		throw new Exception("not implemented");
+	public String getPrintValue(){
+		return new String("");
 	}
 }
