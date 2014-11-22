@@ -19,11 +19,12 @@ public class TextExcel {
 		CellMatrix matrix=new CellMatrix();
 		System.out.print("Enter command:");
 		String userInput=scanIn.nextLine();
-		while(!userInput.equals("quit")){
+		while(!userInput.equals("exit")){
 			checkInput(userInput, matrix);
 			System.out.print("Enter command:");
 			userInput=scanIn.nextLine();
 		}
+		System.out.println("Exitting TextExcel");
 		scanIn.close();
 	}
 
