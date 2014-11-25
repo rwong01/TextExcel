@@ -17,16 +17,12 @@ public class TextExcel {
 //		System.out.print("Enter columns (up to 26):");
 //		int columns=input.nextInt();
 		CellMatrix matrix=new CellMatrix();
-		System.out.print("Enter command(\"help\" for help)::");
+		System.out.print("Enter command (or \"help\" for help):");
 		String userInput=scanIn.nextLine();
-<<<<<<< HEAD
 		while(!userInput.equalsIgnoreCase("exit")){
-=======
-		while(!userInput.toLowerCase().equals("exit")){
->>>>>>> origin/rebecca
-			checkInput(userInput, matrix);
-			System.out.print("Enter command(\"help\" for help)::");
-			userInput=scanIn.nextLine();
+				checkInput(userInput, matrix);
+				System.out.print("Enter command (or \"help\" for help):");
+				userInput=scanIn.nextLine();
 		}
 		System.out.println("Exiting TextExcel");
 		scanIn.close();
@@ -54,14 +50,6 @@ public class TextExcel {
 			String data=input.substring(5);
 			matrix.setCell(cellAddrRow, cellAddrColumn, data);
 		}
-        else if(input.toLowerCase().equals("help")){
-            System.out.println("\nEnter (column)(row) to get contents of a cell");
-            System.out.println("Example:\n input: \"A4\"\n output: A4 = <empty>" );
-            System.out.println(" ");
-            System.out.println("Enter (column)(row) = (data) to set data in a cell");
-            System.out.println("Example:\n input: \"A4 = \"test\"\" \noutput: [A4, =, \"test\"]");
-            System.out.println("Enter \"print\" to print spreadsheet\n");
-        }
 		else
 			System.out.println("Not A Valid Input");
 	}

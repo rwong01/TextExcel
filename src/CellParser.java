@@ -1,4 +1,3 @@
-import java.util.*;
 import java.util.regex.Pattern;
 import java.text.SimpleDateFormat;
 
@@ -23,7 +22,6 @@ public class CellParser {
 
 		             // . Digits ExponentPart_opt FloatTypeSuffix_opt
 		             "(\\.("+Digits+")("+Exp+")?)|"+
-
 		       // Hexadecimal strings
 		       "((" +
 		        // 0[xX] HexDigits ._opt BinaryExponent FloatTypeSuffix_opt
@@ -52,6 +50,6 @@ public class CellParser {
 				return new DoubleCell(Double.valueOf(input));
 		else if (isDate(input))
 			return new DateCell(formatter.parse(input));
-		else throw new Exception("not yet implemented") ;
+		throw new Exception("not yet implemented") ;
 	}
 }
