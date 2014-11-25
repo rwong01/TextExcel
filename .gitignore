@@ -6,3 +6,5 @@
 *.o
 *.so
 /bin
+*.classpath
+*.project

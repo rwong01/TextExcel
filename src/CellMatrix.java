@@ -1,17 +1,17 @@
 public class CellMatrix {
 	int rows;
 	int columns;
-	Cell[][] data;
+	Cell[][] sheet;
 public CellMatrix(){
 	this(10,7);
 }
 public CellMatrix(int r, int c) { 
 	rows=r+1;
 	columns=c+1;
-	data=new Cell[rows][columns]; //initialize array of Cells
+	sheet=new Cell[rows][columns]; //initialize array of Cells
 	for(int i=0;i<rows;i++){
 		for(int j=0;j<columns;j++){
-			data[i][j]= new Cell(); //initialize each Cell
+			sheet[i][j]= new Cell(); //initialize each Cell
 		}
 	}
 	fillTableHeader();
@@ -21,16 +21,16 @@ private void fillTableHeader(){
 	if(columns>27) 
 		columns=27; //display max 26 columns usable columns
 	for(int i=1;i<columns;i++){
-		data[0][i]=new StringCell(alpha.charAt(i-1));//fill first row with alphabet
+		sheet[0][i]=new StringCell(alpha.charAt(i-1));//fill first row with alphabet
 	}
 	for(int i=1;i<rows;i++){
-		data[i][0]=new StringCell(Integer.toString(i)); //fill first column with integers
+		sheet[i][0]=new StringCell(Integer.toString(i)); //fill first column with integers
 	}
 }
-private static void print(CellMatrix matrix){
+private static void print(CellMatrix matrix){ //prints entire spreadsheet
 	for (int i=0;i<matrix.rows;i++){
 		for(int j=0;j<matrix.columns;j++){
-			System.out.print(printFormat(matrix.data[i][j].getPrintValue()));
+			System.out.print(printFormat(matrix.sheet[i][j].getPrintValue()));
 			System.out.print("|");
 		}
 			System.out.println();
@@ -43,25 +43,7 @@ private static void print(CellMatrix matrix){
 			System.out.println();
 	}
 }
-public static void printSheet(CellMatrix matrix){
-	print(matrix);
-}
-private void set(int row, int column, String input){
-	CellParser parser=new CellParser();
-	try {
-		data[row][column+1]=parser.parseCell(input);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}
-public void setCell(int row, int column, String data){
-	set(row, column, data);
-}
-public void setCell(int row, char column, String data){
-	set(row,column-'A',data);
-}
-private static String printFormat(String input){
+private static String printFormat(String input){ //adds correct cell padding
 	String cellPrint="";
 	if(input.length()>12){
 		input=input.substring(0, 12);
@@ -75,11 +57,24 @@ private static String printFormat(String input){
 	}
 	return cellPrint;
 }
-public String getCell(int row, int column){
-	return data[row][column+1].getInputValue();
+public static void printSheet(CellMatrix matrix){ //public method for TextExcel class
+	print(matrix);
+}
+private void set(int row, int column, String input){
+	CellParser parser=new CellParser(); //create CellParser object
+	try {
+		sheet[row][column+1]=parser.parseCell(input);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+public void setCell(int row, char column, String sheet){
+	set(row,column-'A',sheet);
 }
 public String getCell(int row, char column){
-	return getCell(row,column-'A');
+	return sheet[row][(column-'A')+1].getInputValue();
 }
 }
+
 

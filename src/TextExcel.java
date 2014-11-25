@@ -1,8 +1,8 @@
 /**
  * TextExcel Project
- * @date 11/10/14
+ * @date 11/24/14
  * @author Rebecca
- *
+ * Meets Checkpoint: #1
  */
 import java.util.*;
 
@@ -19,7 +19,7 @@ public class TextExcel {
 		CellMatrix matrix=new CellMatrix();
 		System.out.print("Enter command:");
 		String userInput=scanIn.nextLine();
-		while(!userInput.equals("exit")){
+		while(!userInput.equalsIgnoreCase("exit")){
 			checkInput(userInput, matrix);
 			System.out.print("Enter command:");
 			userInput=scanIn.nextLine();
@@ -31,23 +31,27 @@ public class TextExcel {
 	private static void checkInput(String input, CellMatrix matrix) {
 		// TODO Auto-generated method stub
 		String cellIdRegex="[A-G](10|[1-9])";
-		if(input.equals("print"))
+		if(input.equalsIgnoreCase("print"))
 			CellMatrix.printSheet(matrix);
-		else if(input.matches(cellIdRegex)){
+		else if(input.equalsIgnoreCase("help")){
+			System.out.println("exit: exits TextExcel program");
+			System.out.println("print: prints entire spreadsheet with values");
+			System.out.println("[column][row]: returns input value of specified cell, i.e. A5");
+			System.out.println("[column][row] = [data]: sets the value of specified cell, i.e. A5 = \"hello\" ");
+		}
+		else if(input.matches(cellIdRegex)){ //user: get command
 			char cellAddrColumn=input.charAt(0);
 			int cellAddrRow=Character.getNumericValue(input.charAt(1));
 			System.out.println(input+" = "+matrix.getCell(cellAddrRow, cellAddrColumn));
 		}
-		else if(input.length()>5 && input.substring(0, 5).matches(cellIdRegex+" = ")){
-			String[] command=input.split(" ");
-			char cellAddrColumn=command[0].charAt(0);
-			int cellAddrRow=Character.getNumericValue(command[0].charAt(1));
-			String data=command[2];
-			System.out.println(Arrays.toString(command));
+		else if(input.length()>5 && input.substring(0, 5).matches(cellIdRegex+" = ")){ //user: set command
+			char cellAddrColumn=input.charAt(0);
+			int cellAddrRow=Character.getNumericValue(input.charAt(1));
+			String data=input.substring(5);
 			matrix.setCell(cellAddrRow, cellAddrColumn, data);
 		}
 		else
-			System.out.println("Not Valid Input");
+			System.out.println("Not A Valid Input");
 	}
 	
 }
