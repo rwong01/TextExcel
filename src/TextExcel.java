@@ -17,11 +17,11 @@ public class TextExcel {
 //		System.out.print("Enter columns (up to 26):");
 //		int columns=input.nextInt();
 		CellMatrix matrix=new CellMatrix();
-		System.out.print("Enter command:");
+		System.out.print("Enter command(\"help\" for help)::");
 		String userInput=scanIn.nextLine();
 		while(!userInput.equals("exit")){
 			checkInput(userInput, matrix);
-			System.out.print("Enter command:");
+			System.out.print("Enter command(\"help\" for help)::");
 			userInput=scanIn.nextLine();
 		}
 		System.out.println("Exiting TextExcel");
@@ -46,6 +46,14 @@ public class TextExcel {
 			System.out.println(Arrays.toString(command));
 			matrix.setCell(cellAddrRow, cellAddrColumn, data);
 		}
+        else if(input.equals("help")){
+            System.out.println("\nEnter (column)(row) to get contents of a cell");
+            System.out.println("Example:\n input: \"A4\"\n output: A4 = <empty>" );
+            System.out.println(" ");
+            System.out.println("Enter (column)(row) = (data) to set data in a cell");
+            System.out.println("Example:\n input: \"A4 = \"test\"\" \noutput: [A4, =, \"test\"]");
+            System.out.println("Enter \"print\" to print spreadsheet\n");
+        }
 		else
 			System.out.println("Not Valid Input");
 	}
