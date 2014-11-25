@@ -19,7 +19,7 @@ public class TextExcel {
 		CellMatrix matrix=new CellMatrix();
 		System.out.print("Enter command(\"help\" for help)::");
 		String userInput=scanIn.nextLine();
-		while(!userInput.equals("exit")){
+		while(!userInput.toLowerCase().equals("exit")){
 			checkInput(userInput, matrix);
 			System.out.print("Enter command(\"help\" for help)::");
 			userInput=scanIn.nextLine();
@@ -46,7 +46,7 @@ public class TextExcel {
 			System.out.println(Arrays.toString(command));
 			matrix.setCell(cellAddrRow, cellAddrColumn, data);
 		}
-        else if(input.equals("help")){
+        else if(input.toLowerCase().equals("help")){
             System.out.println("\nEnter (column)(row) to get contents of a cell");
             System.out.println("Example:\n input: \"A4\"\n output: A4 = <empty>" );
             System.out.println(" ");
