@@ -1,22 +1,25 @@
 
-public class StringCell {
-	private String data;
+public class StringCell extends Cell {
+	private String input;
 	public StringCell(){
-		setCell("");
+		this("");
 	}
-	public StringCell(String arg){
-		setCell(arg);
+	public StringCell(char input){
+		this(Character.toString(input));
+	}
+	public StringCell(String input){
+		this.input=input;
 	}
 	public void setCell(String arg){
-		data=arg;
+		input=arg;
 	}
 	public void setCell(char arg){
 		setCell(Character.toString(arg));
 	}
-	private String get(){
-		return data;
+	public String getInputValue(){
+		return input;
 	}
-	public String getCell(){
-		return get();
+	public String getPrintValue(){
+		return input.replace("\"", "");
 	}
 }

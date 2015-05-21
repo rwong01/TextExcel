@@ -1,17 +1,17 @@
 public class CellMatrix {
 	int rows;
 	int columns;
-	Cell[][] arr;
+	Cell[][] sheet;
 public CellMatrix(){
 	this(10,7);
 }
 public CellMatrix(int r, int c) { 
 	rows=r+1;
 	columns=c+1;
-	arr=new Cell[rows][columns]; //initialize array of Cells
+	sheet=new Cell[rows][columns]; //initialize array of Cells
 	for(int i=0;i<rows;i++){
 		for(int j=0;j<columns;j++){
-			arr[i][j]= new Cell(); //initialize each Cell
+			sheet[i][j]= new Cell(); //initialize each Cell
 		}
 	}
 	fillTableHeader();
@@ -21,16 +21,16 @@ private void fillTableHeader(){
 	if(columns>27) 
 		columns=27; //display max 26 columns usable columns
 	for(int i=1;i<columns;i++){
-		arr[0][i].setCell(alpha.charAt(i-1)); //fill first row with alphabet
+		sheet[0][i]=new StringCell(alpha.charAt(i-1));//fill first row with alphabet
 	}
 	for(int i=1;i<rows;i++){
-		arr[i][0].setCell(Integer.toString(i)); //fill first column with integers
+		sheet[i][0]=new StringCell(Integer.toString(i)); //fill first column with integers
 	}
 }
-private static void print(CellMatrix matrix){
+private static void print(CellMatrix matrix){ //prints entire spreadsheet
 	for (int i=0;i<matrix.rows;i++){
 		for(int j=0;j<matrix.columns;j++){
-			matrix.arr[i][j].printCell();
+			System.out.print(printFormat(matrix.sheet[i][j].getPrintValue()));
 			System.out.print("|");
 		}
 			System.out.println();
@@ -43,27 +43,38 @@ private static void print(CellMatrix matrix){
 			System.out.println();
 	}
 }
-public static void printSheet(CellMatrix matrix){
+private static String printFormat(String input){ //adds correct cell padding
+	String cellPrint="";
+	if(input.length()>12){
+		input=input.substring(0, 12);
+	}
+	for(int i=0;i<(12-input.length())/2;i++){
+		cellPrint+=" ";
+	}
+	cellPrint+=input;
+	for(int i=0;i<(12-input.length()+1)/2;i++){
+		cellPrint+=" ";
+	}
+	return cellPrint;
+}
+public static void printSheet(CellMatrix matrix){ //public method for TextExcel class
 	print(matrix);
 }
-private static void clear(CellMatrix matrix){
-	for (int i=1;i<matrix.rows;i++){
-		for(int j=1;j<matrix.columns;j++){
-			matrix.arr[i][j].clearCell();
-		}
-	}	
+private void set(int row, int column, String input){
+	CellParser parser=new CellParser(); //create CellParser object
+	try {
+		sheet[row][column+1]=parser.parseCell(input);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
-public static void clearAll(CellMatrix matrix){
-	clear(matrix);
+public void setCell(int row, char column, String sheet){
+	set(row,column-'A',sheet);
 }
-private void set(int row, int column, String data){
-	arr[row][column+1].setCell(data);
-}
-public void setCell(int row, int column, String data){
-	set(row, column, data);
-}
-public void setCell(int row, char column, String data){
-	setCell(row,column-'A',data);
+public String getCell(int row, char column){
+	return sheet[row][(column-'A')+1].getInputValue();
 }
 }
+
 
